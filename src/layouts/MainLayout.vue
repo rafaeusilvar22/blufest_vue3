@@ -58,6 +58,7 @@
           :ripple="{ color: 'primary' }"
           content-class="text-weight-thin"
           :to="{ name: tab.route }"
+          @click="setInitialPositionScrollBehavior()"
         >
         </q-route-tab>
       </q-tabs>
@@ -71,6 +72,7 @@
           v-for="link in linksList"
           :key="link.title"
           v-bind="link"
+          @click="setInitialPositionScrollBehavior()"
         />
       </q-list>
 
@@ -80,6 +82,7 @@
           v-for="link in adminRoute"
           :key="link.title"
           v-bind="link"
+          @click="setInitialPositionScrollBehavior()"
         />
       </q-list>
     </q-drawer>
@@ -132,6 +135,9 @@ const verifyAdmin = () => {
   if (user.value) {
     isAdmin.value = true;
   }
+};
+const setInitialPositionScrollBehavior = () => {
+  // window.scrollTo(0, 0);
 };
 
 const leftDrawerOpen = ref(false);

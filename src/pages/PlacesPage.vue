@@ -37,18 +37,32 @@ import { categoryPlace } from "src/constants/categoryEvents";
 import ChipGroup from "src/components/ChipGroup.vue";
 import TableContent from "src/components/Tables/TableContent.vue";
 
+import setInitialPositionScrollBehavior from "src/utils/functions";
+
 const { listPlace } = useApi();
 const places = ref([]);
 const load = ref(true);
-const selectItemCategory = ref({
-  label: "Bares",
-  id: 5,
-  icon: "flat/drink.png",
-});
+
+const selectItemCategory = ref({});
 
 onMounted(() => {
+  selectItemCategory.value = getStoredCategory();
   fetchEvents();
 });
+
+const getStoredCategory = () => {
+  const storedCategory = sessionStorage.getItem("defineCategoryLocalStorage");
+
+  if (storedCategory) {
+    return JSON.parse(storedCategory);
+  } else {
+    return {
+      label: "Bares",
+      id: 5,
+      icon: "flat/drink.png",
+    };
+  }
+};
 
 const fetchEvents = async () => {
   places.value = await listPlace(
@@ -60,7 +74,16 @@ const fetchEvents = async () => {
 };
 
 const handleSetCategory = (item) => {
-  selectItemCategory.value = { ...item };
+  sessionStorage.setItem(
+    "defineCategoryLocalStorage",
+    JSON.stringify({ ...item })
+  );
+
+  selectItemCategory.value = JSON.parse(
+    sessionStorage.getItem("defineCategoryLocalStorage")
+  );
+
+  setInitialPositionScrollBehavior();
   fetchEvents();
 };
 </script>

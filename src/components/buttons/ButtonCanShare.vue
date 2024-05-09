@@ -10,6 +10,9 @@
 </template>
 <script setup>
 import { computed, onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
+
+import verifyRoute from "src/utils/routeVerifier.js";
 
 const props = defineProps({
   shareData: {
@@ -17,11 +20,13 @@ const props = defineProps({
   },
 });
 
+const route = useRoute();
+const canShare = ref(false);
+const defineRoutes = ref(null);
+
 const data = computed(() => {
   return props.shareData;
 });
-
-const canShare = ref(false);
 
 onMounted(() => {
   if (!navigator.canShare) {
@@ -29,13 +34,17 @@ onMounted(() => {
   } else {
     canShare.value = true;
   }
+  verifyRoute(route, defineRoutes); // Usa a função de verificação de rota no hook 'onMounted'
 });
 
 const shareApp = async (d) => {
   const shareData = {
-    title: "Veja esse Evento no BlumenauFest",
+    title: `Veja esse ${defineRoutes.value[0].title} no BlumenauFest`,
     text: d.name,
-    url: window.location.origin + "/#/event/" + d.id,
+    url:
+      window.location.origin +
+      `/#/${defineRoutes.value[0].pathDetailsPage}/` +
+      d.id,
   };
 
   try {

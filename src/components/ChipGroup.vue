@@ -20,8 +20,7 @@
 </template>
 <script setup>
 import { computed, ref } from "vue";
-
-const emit = defineEmits(["selectCategory"]);
+const emit = defineEmits(["selectCategory", "initialScrool"]);
 const props = defineProps({
   category: {
     type: Object,
@@ -40,6 +39,7 @@ const clickedIndex = ref(props.itemActive);
 
 const handleChipSelect = (index, item) => {
   clickedIndex.value = index;
+  window.scrollTo(0, 0);
   emit("selectCategory", item);
 };
 </script>

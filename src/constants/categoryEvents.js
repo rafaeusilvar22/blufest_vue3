@@ -44,7 +44,7 @@ export const categoryPlace = [
     icon: "flat/acai.png",
   },
   {
-    label: "Agências de Emprego",
+    label: "Ag. Empregos",
     id: 3,
     icon: "flat/suitcase.png",
   },
@@ -69,17 +69,17 @@ export const categoryPlace = [
     icon: "flat/ball-discotheque.png",
   },
   {
-    label: "Caixas Eletrônicos",
+    label: "Caixas 24h",
     id: 8,
     icon: "flat/cash-machine.png",
   },
   {
-    label: "Hospitais e Postos de Saúde",
+    label: "Saúde",
     id: 9,
     icon: "flat/hospital.png",
   },
   {
-    label: "Hotéis e Pousadas",
+    label: "Hotéis",
     id: 10,
     icon: "flat/hotel.png",
   },

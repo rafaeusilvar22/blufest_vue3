@@ -9,12 +9,24 @@
       row-key="name"
       :filter="filter"
       :loading="load"
+      v-model:pagination="pagination"
+      hide-pagination
       hide-header
     >
+      <template v-slot:loading>
+        <LogoLoading />
+      </template>
+
+      <template v-slot:no-data>
+        <div class="full-width row flex-center text-primary q-gutter-sm">
+          <q-icon v-if="!load" size="2em" name="sentiment_dissatisfied" />
+          <span>{{ load ? "" : "Sem resultados" }} </span>
+        </div>
+      </template>
+
       <template v-slot:top>
         <q-input
           class="col-xs-12 col-sm-6"
-          borderless
           dense
           debounce="300"
           v-model="filter"
@@ -25,13 +37,15 @@
           </template>
         </q-input>
       </template>
+
       <template v-slot:item="props">
         <div class="q-px-md q-pb-md col-xs-12 col-sm-6 col-md-3">
-          <q-card
-            :class="[$q.dark.isActive ? '' : 'bg-grey-1', { fit: true }]"
-            @click="handleDetailData(props.row)"
-          >
-            <q-img :ratio="1" :src="props.row.img_url">
+          <q-card :class="[$q.dark.isActive ? '' : 'bg-grey-1', { fit: true }]">
+            <q-img
+              :ratio="1"
+              :src="props.row.img_url"
+              @click="handleDetailData(props.row)"
+            >
               <template #loading>
                 <q-skeleton class="full-width full-height" square />
               </template>
@@ -69,12 +83,25 @@
         </div>
       </template>
     </q-table>
+    <div
+      v-if="!load && fetchData.length >= 9"
+      class="row justify-center q-mt-md"
+    >
+      <q-pagination
+        v-model="pagination.page"
+        color="primary"
+        :max="pagesNumber"
+        :input="true"
+        size="sm"
+      />
+    </div>
   </q-page>
 </template>
 <script setup>
 import { computed, ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
+import LogoLoading from "src/components/Loading/LogoLoading.vue";
 import { columns } from "src/constants/columnsTable";
 import verifyRoute from "src/utils/routeVerifier.js";
 import ButtonCanShare from "src/components/buttons/ButtonCanShare.vue";
@@ -94,10 +121,26 @@ const filter = ref("");
 const canShare = ref(false);
 const defineRoutes = ref(null);
 
+// Recupera a posição de rolagem do localStorage ao entrar no componente
+//const scrollPosition = sessionStorage.getItem("scrollPositionTableContent");
+
 onMounted(() => {
   verifyRoute(route, defineRoutes); // Usa a função de verificação de rota no hook 'onMounted'
-  console.log(defineRoutes.value[0].toDetailsPage);
 });
+
+// onUpdated(() => {
+//   if (scrollPosition !== null) {
+//     window.scrollTo(0, parseInt(scrollPosition));
+//   }
+// });
+
+// onBeforeRouteLeav hook fornecido pelo Vue Router que permite executar ações antes de sair de uma rota.
+// Ele é útil quando você precisa executar alguma lógica específica antes de deixar uma determinada página,
+// como validar formulários, limpar estados ou, como no nosso caso, armazenar informações relevantes antes de sair de um componente.
+// onBeforeRouteLeave((to, from, next) => {
+//   sessionStorage.setItem("scrollPositionTableContent", window.scrollY);
+//   next();
+// });
 
 const fetchData = computed(() => {
   return props.fetchData;
@@ -107,17 +150,21 @@ const load = computed(() => {
 });
 
 const handleDetailData = (course) => {
-  // Armazenar a posição do scroll antes de navegar para a próxima página
-  router.scrollBehavior = function (to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    } else {
-      return { top: window.pageYOffset };
-    }
-  };
   router.push({
     name: defineRoutes.value[0].toDetailsPage,
     params: { id: course.id },
   });
 };
+
+const pagination = ref({
+  sortBy: "desc",
+  descending: false,
+  page: 1,
+  rowsPerPage: 10,
+  // rowsNumber: xx if getting data from a server
+});
+
+const pagesNumber = computed(() =>
+  Math.ceil(fetchData.value.length / pagination.value.rowsPerPage)
+);
 </script>
