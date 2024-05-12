@@ -136,8 +136,10 @@
               <q-btn
                 flat
                 label="Cancelar"
-                color="white"
-                class="float-right text-black"
+                :class="[
+                  $q.dark.isActive ? 'text-white' : 'text-primary',
+                  { 'float-right': true },
+                ]"
                 @click="handleReturnRoute"
               />
             </div>

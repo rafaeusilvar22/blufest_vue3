@@ -36,7 +36,7 @@
           icon="mdi-plus"
           color="primary"
           class="q-ml-md"
-          :to="{ name: 'form-manage' }"
+          :to="{ name: definedCategory[0].route }"
         />
       </template>
 

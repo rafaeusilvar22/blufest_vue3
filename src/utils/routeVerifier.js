@@ -24,6 +24,9 @@ const verifyRoute = (route, defineRoutes) => {
       tableEvent: "tourism",
       pathDetailsPage: "detailtourism",
     },
+    manageEvents: {
+      toForm: "form-event",
+    },
     // Adicione mais definições de rota conforme necessário
   };
 
