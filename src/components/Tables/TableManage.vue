@@ -21,7 +21,7 @@
           dense
           debounce="300"
           v-model="filter"
-          placeholder="Search"
+          :placeholder="$t('search')"
         >
           <template v-slot:append>
             <q-icon name="search" />
@@ -36,7 +36,7 @@
           icon="mdi-plus"
           color="primary"
           class="q-ml-md"
-          :to="{ name: 'formEvents' }"
+          :to="{ name: 'form-manage' }"
         />
       </template>
 
@@ -79,7 +79,7 @@
   </div>
 </template>
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import useApi from "src/composables/useApi.js";
 
@@ -113,14 +113,10 @@ const loading = computed(() => {
 });
 const filter = ref("");
 
-onMounted(() => {
-  console.log(definedCategory.value);
-});
-
 const handleEditCourse = (course) => {
   router.push({
     name: definedCategory.value[0].route,
-    params: { event: course.id },
+    params: { id: course.id },
   });
 };
 

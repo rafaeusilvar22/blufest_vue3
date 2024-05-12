@@ -5,14 +5,14 @@ export const adminRoute = [
     route: "manageEvents",
   },
   {
-    title: "Gerenciar Pontos Turísticos",
-    icon: "mdi-map-marker-radius",
-    route: "manageTourism",
-  },
-  {
     title: "Gerenciar Locais",
     icon: "mdi-map-marker-radius",
     route: "managePlaces",
+  },
+  {
+    title: "Gerenciar Pontos Turísticos",
+    icon: "mdi-map-marker-radius",
+    route: "manageTourism",
   },
   // {
   //   title: 'Gerenciar Categorias Eventos',

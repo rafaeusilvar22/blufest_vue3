@@ -10,19 +10,17 @@
 </template>
 <script setup>
 import { computed, onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
-
-import verifyRoute from "src/utils/routeVerifier.js";
 
 const props = defineProps({
   shareData: {
     type: Object,
   },
+  details: {
+    type: Object,
+  },
 });
 
-const route = useRoute();
 const canShare = ref(false);
-const defineRoutes = ref(null);
 
 const data = computed(() => {
   return props.shareData;
@@ -34,23 +32,19 @@ onMounted(() => {
   } else {
     canShare.value = true;
   }
-  verifyRoute(route, defineRoutes); // Usa a função de verificação de rota no hook 'onMounted'
 });
 
 const shareApp = async (d) => {
   const shareData = {
-    title: `Veja esse ${defineRoutes.value[0].title} no BlumenauFest`,
+    title: `Veja esse ${props.details[0]} no BlumenauFest`,
     text: d.name,
-    url:
-      window.location.origin +
-      `/#/${defineRoutes.value[0].pathDetailsPage}/` +
-      d.id,
+    url: window.location.origin + `/#/${props.details.param_url}/` + d.id,
   };
 
   try {
     await navigator.share(shareData);
   } catch (err) {
-    // $notifyDanger("Não foi possível compartilhar o app!");
+    console.log(err);
   }
 };
 </script>

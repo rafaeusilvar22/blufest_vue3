@@ -18,13 +18,31 @@
               ]"
             />
 
-            <select-form
+            <q-select
+              outlined
+              clearable
               class="col-md-8 col-xs-12 col-sm-12"
-              :options="optionsCategoryEvents"
-              :definedCategory="form.category"
-              @selectOption="handleCategoryEvents"
-            />
-
+              :options="categoryTourism"
+              v-model="form.category"
+              option-label="label"
+              option-value="value"
+              emit-value
+              map-options
+            >
+              <template v-slot:option="scope">
+                <q-item v-bind="scope.itemProps">
+                  <q-item-section avatar>
+                    <q-img :src="scope.opt.icon" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>{{ scope.opt.label }}</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </template>
+              <template v-slot:prepend>
+                <q-icon name="mdi-shape-outline" />
+              </template>
+            </q-select>
             <q-input
               v-model="form.address"
               :label="$t('place')"
@@ -35,20 +53,6 @@
               ]"
             />
 
-            <q-input
-              v-model="form.profile_instagram"
-              :label="$t('instagram profile')"
-              outlined
-              class="col-md-8 col-xs-12 col-sm-12"
-            />
-
-            <q-input
-              v-model="form.ticket"
-              :label="$t('ticket link')"
-              outlined
-              class="col-md-8 col-xs-12 col-sm-12"
-            />
-
             <div class="col-md-8 col-xs-12 col-sm-12">
               <q-input
                 outlined
@@ -57,6 +61,28 @@
                 v-model="form.description"
               />
             </div>
+
+            <q-input
+              v-model="form.latitude"
+              label="Latitude"
+              outlined
+              class="col-md-8 col-xs-12 col-sm-12"
+            >
+              <template v-slot:prepend>
+                <q-icon name="mdi-compass-rose" />
+              </template>
+            </q-input>
+
+            <q-input
+              v-model="form.longitude"
+              label="Longitude"
+              outlined
+              class="col-md-8 col-xs-12 col-sm-12"
+            >
+              <template v-slot:prepend>
+                <q-icon name="mdi-compass-rose" />
+              </template>
+            </q-input>
 
             <q-file
               v-if="!previewUrl"
@@ -72,8 +98,6 @@
             <div
               class="col-md-8 col-xs-12 col-sm-12 q-gutter-md row items-start q-pb-sm"
             >
-              <q-date v-model="form.date" mask="YYYY-MM-DD" color="primary" />
-
               <div
                 v-if="previewUrl"
                 class="col-md-8 col-xs-12 col-sm-12 text-left"
@@ -128,15 +152,14 @@ import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import userApi from "src/composables/useApi";
 import useNotify from "src/composables/useNotify";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 
-import { optionsCategoryEvents } from "src/constants/optionsCategory";
-import SelectForm from "src/components/Selects/SelectForm.vue";
+import { categoryTourism } from "src/constants/categories";
 
 const { getById, update, post, uploadImg } = userApi();
 
 const props = defineProps({
-  event: {
+  id: {
     type: String,
     required: false,
   },
@@ -145,34 +168,22 @@ const props = defineProps({
 const { t } = useI18n();
 const { notifySucess, notifyError } = useNotify();
 const router = useRouter();
-const route = useRoute();
 const previewUrl = ref(null);
 const img = ref("");
-const category = ref([]);
 const form = ref({
   title: "",
   description: "",
-  profile_instagram: "",
-  ticket: "",
   img_url: [],
   category: "",
-  date: "",
+  latitude: "",
+  longitude: "",
 });
 
 onMounted(() => {
-  verifyRoute();
-  if (props.event) {
+  if (props.id) {
     getItem();
   }
 });
-
-const verifyRoute = () => {
-  if (route.name === "formEvents") {
-    category.value = [
-      { route: "formEvents", return_route: "manageEvents", table: "posts" },
-    ];
-  }
-};
 
 const onFileChange = (event) => {
   const file = event.target.files[0];
@@ -196,18 +207,12 @@ const updateImg = () => {
   form.value.img_url = [];
 };
 
-// função recebe do filho (select) o valor da categoria e atribui para
-// form -> category
-const handleCategoryEvents = (item) => {
-  form.value.category = item;
-};
-
 // Função buscar evento atraves do id
 const getItem = async () => {
   try {
-    const data = await getById(category.value[0].table, props.event);
+    const data = await getById("tourism", props.id);
 
-    if (props.event) {
+    if (props.id) {
       previewUrl.value = data.img_url;
       form.value = {
         ...data,
@@ -221,13 +226,13 @@ const getItem = async () => {
 
 const handleRegisterItem = async () => {
   try {
-    img.value = await uploadImg(form.value.img_url, category.value[0].table);
+    img.value = await uploadImg(form.value.img_url, "tourism");
 
     form.value.img_url = img.value;
 
-    await post("posts", form.value);
+    await post("tourism", form.value);
     notifySucess(t("published"));
-    router.push({ name: category.value[0].route });
+    router.push({ name: "manageTourism" });
   } catch {
     notifyError(t("error registering"));
   }
@@ -243,16 +248,16 @@ const handleUpdateItem = async () => {
 
     // form.value.img_url = img.value;
 
-    await update(category.value[0].table, form.value);
+    await update("tourism", form.value);
     notifySucess(t("update item"));
-    router.push({ name: category.value[0].return_route });
+    router.push({ name: "manageTourism" });
   } catch (error) {
     console.log(error);
   }
 };
 
 const handleReturnRoute = () => {
-  router.push({ name: category.value[0].return_route });
+  router.push({ name: "manageTourism" });
 };
 
 const onSubmit = () => {

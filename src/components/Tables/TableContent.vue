@@ -64,7 +64,7 @@
                   :color="$q.dark.isActive ? 'white' : 'grey-8'"
                   @click="shareApp(props.row)"
                 />
-                <ButtonCanShare :shareData="props.row" />
+                <ButtonCanShare :shareData="props.row" :details="details" />
               </div>
 
               <div
@@ -104,7 +104,7 @@ import { useRouter, useRoute } from "vue-router";
 import LogoLoading from "src/components/Loading/LogoLoading.vue";
 import { columns } from "src/constants/columnsTable";
 import verifyRoute from "src/utils/routeVerifier.js";
-import ButtonCanShare from "src/components/buttons/ButtonCanShare.vue";
+import ButtonCanShare from "components/Buttons/ButtonCanShare.vue";
 
 const props = defineProps({
   fetchData: {
@@ -112,6 +112,9 @@ const props = defineProps({
   },
   load: {
     type: Boolean,
+  },
+  details: {
+    type: Object,
   },
 });
 

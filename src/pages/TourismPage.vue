@@ -6,12 +6,16 @@
         @selectCategory="handleSetCategory"
       />
     </div>
-    <table-content :fetchData="tourism" :load="load" />
+    <table-content
+      :fetchData="tourism"
+      :load="load"
+      :details="detailsTourism"
+    />
   </q-page>
 </template>
 <script setup>
 import { onMounted, ref } from "vue";
-import { categoryTourism } from "src/constants/categoryEvents";
+import { categoryTourism } from "src/constants/categories";
 import useApi from "src/composables/useApi.js";
 
 import ChipGroup from "src/components/ChipGroup.vue";
@@ -21,6 +25,10 @@ const { listPlace } = useApi();
 const tourism = ref([]);
 const load = ref(true);
 const selectItemCategory = ref(0);
+const detailsTourism = {
+  title: "Turismo",
+  param_url: "detailtourism",
+};
 
 onMounted(() => {
   funcFetchTourism();
@@ -40,3 +48,4 @@ const handleSetCategory = (item) => {
   funcFetchTourism();
 };
 </script>
+src/constants/categories

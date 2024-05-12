@@ -5,27 +5,31 @@
       :options="props.options"
       v-model="setOptions"
       :label="$t('categories')"
-      @update:model-value="handleSelectOption()"
+      @update:model-value="handleSelectOption(setOptions)"
     />
   </div>
 </template>
 <script setup>
-import { ref } from "vue";
+import { onUpdated, ref } from "vue";
 
+const emit = defineEmits(["selectOption"]);
 const props = defineProps({
   options: {
     type: Array,
+    required: true,
   },
   definedCategory: {
     type: String,
+    required: true,
   },
 });
-
-const emit = defineEmits(["selectOption"]);
-
 const setOptions = ref(props.definedCategory);
 
-const handleSelectOption = () => {
-  emit("selectOption", setOptions.value.value);
+onUpdated(() => {
+  console.log(setOptions.value);
+});
+
+const handleSelectOption = (option) => {
+  emit("selectOption", option.value);
 };
 </script>

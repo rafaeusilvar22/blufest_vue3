@@ -2,7 +2,7 @@ const verifyRoute = (route, defineRoutes) => {
   const routeDefinitions = {
     events: {
       title: "Evento",
-      toEventFormRoute: "formEvents",
+      toEventFormRoute: "form-manages",
       returnEventManage: "manageEvents",
       toDetailsPage: "event",
       tableEvent: "posts",

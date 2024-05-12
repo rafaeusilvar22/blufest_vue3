@@ -26,13 +26,13 @@
       </q-btn>
     </div>
 
-    <table-content :fetchData="places" :load="load" />
+    <table-content :fetchData="places" :load="load" :details="detailsPlace" />
   </q-page>
 </template>
 <script setup>
 import { onMounted, ref } from "vue";
 import useApi from "src/composables/useApi.js";
-import { categoryPlace } from "src/constants/categoryEvents";
+import { categoryPlace } from "src/constants/categories";
 
 import ChipGroup from "src/components/ChipGroup.vue";
 import TableContent from "src/components/Tables/TableContent.vue";
@@ -42,12 +42,16 @@ import setInitialPositionScrollBehavior from "src/utils/functions";
 const { listPlace } = useApi();
 const places = ref([]);
 const load = ref(true);
-
 const selectItemCategory = ref({});
+
+const detailsPlace = {
+  title: "Locais",
+  param_url: "details-place",
+};
 
 onMounted(() => {
   selectItemCategory.value = getStoredCategory();
-  fetchEvents();
+  fetchPlaces();
 });
 
 const getStoredCategory = () => {
@@ -64,7 +68,7 @@ const getStoredCategory = () => {
   }
 };
 
-const fetchEvents = async () => {
+const fetchPlaces = async () => {
   places.value = await listPlace(
     "places",
     "category_id",
@@ -84,6 +88,7 @@ const handleSetCategory = (item) => {
   );
 
   setInitialPositionScrollBehavior();
-  fetchEvents();
+  fetchPlaces();
 };
 </script>
+src/constants/categories

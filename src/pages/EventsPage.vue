@@ -1,14 +1,17 @@
 <template>
   <q-page padding>
     <div class="row q-pt-sm col-md-12">
-      <ChipGroup :category="category" @selectCategory="handleSetCategory" />
+      <ChipGroup
+        :category="categoryEvent"
+        @selectCategory="handleSetCategory"
+      />
     </div>
-    <table-content :fetchData="events" :load="load" />
+    <table-content :fetchData="events" :load="load" :details="detailsEvent" />
   </q-page>
 </template>
 <script setup>
 import { onMounted, ref } from "vue";
-import { category } from "src/constants/categoryEvents";
+import { categoryEvent } from "src/constants/categories";
 import useApi from "src/composables/useApi.js";
 import getDateFormated from "src/utils/currentDate";
 
@@ -17,6 +20,10 @@ import TableContent from "src/components/Tables/TableContent.vue";
 
 const { fetchEvents } = useApi();
 const events = ref([]);
+const detailsEvent = {
+  title: "Evento",
+  param_url: "details",
+};
 const load = ref(true);
 const emitCategory = ref("");
 
@@ -38,3 +45,4 @@ const handleSetCategory = (item) => {
   funcFetchEvents();
 };
 </script>
+src/constants/categories

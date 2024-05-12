@@ -42,8 +42,8 @@ import { useQuasar } from "quasar";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import useAuthUser from "src/composables/useAuthUser";
-import DarkMode from "components/accessibility/DarkMode.vue";
-import SetLanguage from "components/accessibility/SetLanguage.vue";
+import DarkMode from "components/Accessibility/DarkMode.vue";
+import SetLanguage from "components/Accessibility/SetLanguage.vue";
 
 const props = defineProps({
   signOut: {

@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div class="q-pl-md text-h6">{{ $t("manage events") }}</div>
+    <div class="q-pl-md text-h6">{{ $t("manage tourism") }}</div>
     <table-manage
       :data="fetchData"
       :load="loading"
@@ -13,22 +13,20 @@
 import { onMounted, ref } from "vue";
 import useNotify from "src/composables/useNotify";
 import userApi from "src/composables/useApi";
-import getDateFormated from "src/utils/currentDate";
 import TableManage from "src/components/Tables/TableManage.vue";
 
 const { notifySucess } = useNotify();
-const { fetchEvents } = userApi();
+const { listPlace } = userApi();
 const fetchData = ref([]);
 const loading = ref(true);
-const category = [{ route: "form-event", table: "posts", query: "event" }];
+const category = [{ route: "form-tourism", table: "tourism" }];
 
 onMounted(() => {
-  funcFetchEvents();
+  funcFetchTourism();
 });
 
-const funcFetchEvents = async () => {
-  const data = await fetchEvents("posts", "", getDateFormated());
-  fetchData.value = data;
+const funcFetchTourism = async () => {
+  fetchData.value = await listPlace("tourism", "category", 0);
   loading.value = false;
 };
 
