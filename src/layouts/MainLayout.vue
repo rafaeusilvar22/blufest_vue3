@@ -36,8 +36,9 @@
         $q.platform.is.ios ? 'q-pb-xs' : '',
         $q.dark.isActive ? 'bg-dark' : 'bg-white',
       ]"
+      style="background: transparent !important; height: 0px"
     >
-      <q-tabs
+      <!-- <q-tabs
         align="justify"
         dense
         no-caps
@@ -61,7 +62,8 @@
           @click="setInitialPositionScrollBehavior()"
         >
         </q-route-tab>
-      </q-tabs>
+      </q-tabs> -->
+      <bottom-navigation v-if="visibledBottomNavigation" />
     </q-footer>
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
@@ -94,16 +96,21 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
+import { adminRoute } from "src/constants/adminRoute";
+import useAuthUser from "src/composables/useAuthUser";
+
 import EssentialLink from "components/EssentialLink.vue";
 import AdjustmentMenu from "components/AdjustmentMenu.vue";
-import { useI18n } from "vue-i18n";
-import useAuthUser from "src/composables/useAuthUser";
-import { adminRoute } from "src/constants/adminRoute";
+import BottomNavigation from "components/BottomNavigation.vue";
+import { useRoute } from "vue-router";
 
 const { user } = useAuthUser();
 const { t } = useI18n();
+const route = useRoute();
 const isAdmin = ref(false);
+const visibledBottomNavigation = ref(true);
 const linksList = ref([
   {
     title: t("events"),
@@ -130,6 +137,21 @@ const linksList = ref([
 onMounted(() => {
   verifyAdmin();
 });
+
+// https://vuejs.org/guide/essentials/watchers.html
+watch(
+  () => route.name,
+  (r) => {
+    verifyRoute(r);
+  }
+);
+
+// Função para ocultar ou exibir bottom-navigation de acordo com a rota
+const verifyRoute = (r) => {
+  visibledBottomNavigation.value = linksList.value.some(
+    (item) => item.route === r
+  );
+};
 
 const verifyAdmin = () => {
   if (user.value) {

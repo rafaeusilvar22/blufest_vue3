@@ -80,6 +80,11 @@ const routes = [
         component: () => import("src/pages/manage/forms/FormTourism.vue"),
         props: true,
       },
+      {
+        path: "playground",
+        name: "playground",
+        component: () => import("src/pages/PlaygroundPage.vue"),
+      },
     ],
     meta: {
       requiresAuth: true,

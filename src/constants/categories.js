@@ -1,8 +1,4 @@
-// import { useI18n } from "vue-i18n";
 import { ref } from "vue";
-
-// const { t } = useI18n();
-// const i18nAll = ref(t("all"));
 
 export const categoryEvent = ref([
   { label: "Todos", value: "", icon: "flat/all.png", selected: false },

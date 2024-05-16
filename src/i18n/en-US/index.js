@@ -37,4 +37,11 @@ export default {
   "published ": "Published ",
   "error registering ": "Error registering ",
   "update item": "Update ",
+  categoryEvent: {
+    all: "All",
+    cultural: "Cultural",
+    sports: "Sports",
+    parties: "Parties",
+    tourism: "Tourism",
+  },
 };
