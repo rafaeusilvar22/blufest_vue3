@@ -19,6 +19,7 @@ export default {
   places: "Places",
   tourism: "Tourism",
   about: "About",
+  more: "More",
   categories: "Categories",
   all: "All",
   "manage events": "Manage Events",
@@ -43,5 +44,18 @@ export default {
     sports: "Sports",
     parties: "Parties",
     tourism: "Tourism",
+  },
+  time: {
+    "good morning": "Good morning",
+    "good afternoon": "Good afternoon",
+    goodnight: "Goodnight",
+  },
+  "Quick access": "Quick access",
+  quick_acess: {
+    "Publicize event": "Publicize event",
+    "Promote location": "Promote location",
+    "About the app": "About the app",
+    "Follow on instagram": "Follow on instagram",
+    "Share app": "Share app",
   },
 };

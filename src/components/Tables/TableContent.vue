@@ -85,7 +85,8 @@
     </q-table>
     <div
       v-if="!load && fetchData.length >= 9"
-      class="row justify-center q-mt-md"
+      :class="[$q.platform.is.mobile ? 'q-mb-xl' : '']"
+      class="row justify-center"
     >
       <q-pagination
         v-model="pagination.page"

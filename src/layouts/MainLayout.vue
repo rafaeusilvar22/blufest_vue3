@@ -128,9 +128,9 @@ const linksList = ref([
     route: "tourism",
   },
   {
-    title: t("about"),
-    icon: "info",
-    route: "about",
+    title: t("more"),
+    icon: "more",
+    route: "more",
   },
 ]);
 

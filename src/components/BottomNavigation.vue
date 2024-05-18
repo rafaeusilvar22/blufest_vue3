@@ -55,7 +55,7 @@ const infoNavBottom = [
   { name: "Inicio", route: "events", icon: "home" },
   { name: "Locais", route: "places", icon: "place" },
   { name: "Turismo", route: "tourism", icon: "tourism" },
-  { name: "Mais", route: "about", icon: "more" },
+  { name: "Mais", route: "more", icon: "more" },
 ];
 
 const icons = {

@@ -24,6 +24,11 @@ const routes = [
         component: () => import("pages/AboutPage.vue"),
       },
       {
+        path: "more",
+        name: "more",
+        component: () => import("pages/MorePage.vue"),
+      },
+      {
         path: "details/:id",
         name: "event",
         component: () => import("pages/DetailsPage.vue"),

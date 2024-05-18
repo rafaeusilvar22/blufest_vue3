@@ -19,6 +19,7 @@ export default {
   places: "Locais",
   tourism: "Turismo",
   about: "Sobre",
+  more: "Mais",
   categories: "Categorias",
   all: "Todos",
   "manage events": "Gerenciar Eventos",
@@ -37,4 +38,17 @@ export default {
   "published ": "publicado",
   "error registering ": "Erro ao publicar",
   "update item": "atualizado",
+  time: {
+    "good morning": "Bom-dia",
+    "good afternoon": "Boa-tarde",
+    goodnight: "Boa-noite",
+  },
+  "Quick access": "Acessos rápidos",
+  quick_acess: {
+    "Publicize event": "Divulgar Evento",
+    "Promote location": "Divulgar Local",
+    "About the app": "Sobre o app",
+    "Follow on instagram": "Seguir no Instagram",
+    "Share app": "Compartilhar app",
+  },
 };
