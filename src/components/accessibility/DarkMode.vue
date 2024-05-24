@@ -1,14 +1,16 @@
 <template>
-  <q-toggle
-    v-model="darkMode"
-    class="text-caption"
-    size="md"
-    checked-icon="mdi-moon-waning-crescent"
-    unchecked-icon="mdi-white-balance-sunny"
-    :color="$q.dark.isActive ? 'primary' : 'white'"
-    :label="$q.dark.isActive ? $t('dark_mode') : $t('light_mode')"
-    @click="handleSetDarkMode(darkMode)"
-  />
+  <div class="row items-center">
+    <q-toggle
+      v-model="darkMode"
+      class="text-caption"
+      size="md"
+      checked-icon="mdi-moon-waning-crescent"
+      unchecked-icon="mdi-white-balance-sunny"
+      :color="$q.dark.isActive ? 'primary' : 'white'"
+      @click="handleSetDarkMode(darkMode)"
+    />
+    <span>{{ $q.dark.isActive ? $t("dark_mode") : $t("light_mode") }}</span>
+  </div>
 </template>
 <script setup>
 import { useQuasar } from "quasar";

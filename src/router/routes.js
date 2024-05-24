@@ -29,6 +29,11 @@ const routes = [
         component: () => import("pages/MorePage.vue"),
       },
       {
+        path: "settings",
+        name: "settings",
+        component: () => import("pages/SettingsPage.vue"),
+      },
+      {
         path: "details/:id",
         name: "event",
         component: () => import("pages/DetailsPage.vue"),

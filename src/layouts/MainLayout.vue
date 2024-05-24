@@ -25,9 +25,7 @@
             "
           />
         </q-toolbar-title>
-        <div class="row justify-end col-1">
-          <adjustment-menu />
-        </div>
+        <div class="row justify-end col-1"></div>
       </q-toolbar>
     </q-header>
     <q-footer
@@ -38,31 +36,6 @@
       ]"
       style="background: transparent !important; height: 0px"
     >
-      <!-- <q-tabs
-        align="justify"
-        dense
-        no-caps
-        indicator-color="transparent"
-        active-color="primary"
-        :class="[
-          $q.dark.isActive
-            ? 'bg-dark text-white'
-            : 'bg-white text-weight-thin text-grey-7',
-          $q.platform.is.ios ? 'q-pb-xs' : '',
-        ]"
-        ><q-route-tab
-          v-for="(tab, index) in linksList"
-          :key="index"
-          :icon="tab.icon"
-          :label="tab.title"
-          exact
-          :ripple="{ color: 'primary' }"
-          content-class="text-weight-thin"
-          :to="{ name: tab.route }"
-          @click="setInitialPositionScrollBehavior()"
-        >
-        </q-route-tab>
-      </q-tabs> -->
       <bottom-navigation v-if="visibledBottomNavigation" />
     </q-footer>
 
@@ -102,7 +75,6 @@ import { adminRoute } from "src/constants/adminRoute";
 import useAuthUser from "src/composables/useAuthUser";
 
 import EssentialLink from "components/EssentialLink.vue";
-import AdjustmentMenu from "components/AdjustmentMenu.vue";
 import BottomNavigation from "components/BottomNavigation.vue";
 import { useRoute } from "vue-router";
 

@@ -66,9 +66,11 @@ import { ref } from "vue";
 import { icons } from "src/constants/iconSvg";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
+import { useQuasar } from "quasar";
 
 const { t } = useI18n();
 const router = useRouter();
+const $q = useQuasar();
 const buttonsQuickAcess = ref([
   {
     title: t("quick_acess.Publicize event"),
@@ -92,6 +94,14 @@ const buttonsQuickAcess = ref([
     url: "https://abaetetech.com.br/",
   },
   { title: t("quick_acess.Share app"), icon: "share", url: "" },
+  { title: t("quick_acess.settings"), icon: "settings", route: "settings" },
+  {
+    title: t("quick_acess.Rate app"),
+    icon: "star",
+    url: $q.platform.is.android
+      ? "https://play.google.com/store/apps/details?id=br.com.blufest.app.twa&pcampaignid=web_share"
+      : "https://apps.apple.com/br/app/blufest/id6465289468",
+  },
 ]);
 
 const goToRoute = ({ route, url }) => {
@@ -133,7 +143,7 @@ const getTimeOfDay = () => {
 <style lang="scss" scoped>
 .quick-access {
   width: 100%;
-  height: 80vh;
+  height: 100vh;
   border-radius: 70px 70px 0 0;
 }
 .bg-252525 {

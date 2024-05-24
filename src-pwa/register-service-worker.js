@@ -1,4 +1,5 @@
-import { register } from 'register-service-worker'
+import { register } from "register-service-worker";
+import { Notify } from "quasar";
 
 // The ready(), registered(), cached(), updatefound() and updated()
 // events passes a ServiceWorkerRegistration instance in their arguments.
@@ -11,31 +12,44 @@ register(process.env.SERVICE_WORKER_FILE, {
 
   // registrationOptions: { scope: './' },
 
-  ready (/* registration */) {
+  ready(/* registration */) {
     // console.log('Service worker is active.')
   },
 
-  registered (/* registration */) {
+  registered(/* registration */) {
     // console.log('Service worker has been registered.')
   },
 
-  cached (/* registration */) {
+  cached(/* registration */) {
     // console.log('Content has been cached for offline use.')
   },
 
-  updatefound (/* registration */) {
+  updatefound(/* registration */) {
     // console.log('New content is downloading.')
   },
 
-  updated (/* registration */) {
-    // console.log('New content is available; please refresh.')
+  updated(/* registration */) {
+    setTimeout(() => {
+      Notify.create({
+        title: "Nova versão disponível!",
+        message:
+          "Recarregue seu app para aplicar a atualização e ter os novos recursos disponíveis!",
+        icon: "browser_updated",
+        closeBtn: "Atualizar",
+        dark: true,
+        timeout: 100000,
+        onDismiss() {
+          location.reload(true);
+        },
+      });
+    }, 3000);
   },
 
-  offline () {
+  offline() {
     // console.log('No internet connection found. App is running in offline mode.')
   },
 
-  error (/* err */) {
+  error(/* err */) {
     // console.error('Error during service worker registration:', err)
-  }
-})
+  },
+});

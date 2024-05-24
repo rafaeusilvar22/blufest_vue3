@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "br.com.blufest.app.twa",
+        "sha256_cert_fingerprints": ["03:F0:5F:26:91:EE:D7:01:01:08:57:02:3F:19:20:C2:3A:7A:7B:9C:69:F4:CB:32:DD:B3:7A:03:AB:32:1F:DC"]
+      }
+    }]

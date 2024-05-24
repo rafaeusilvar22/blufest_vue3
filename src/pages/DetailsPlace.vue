@@ -1,14 +1,15 @@
 <template>
   <q-page padding>
     <skeleton-details-page v-if="load" />
-    <div v-else class="q-pa-xs">
+    <div v-else class="row justify-evenly q-gutter-y-md">
       <q-img
+        class="col-sm-5 col-12"
         :src="courseData.img_url"
         ratio="1"
         style="max-height: 30rem; max-width: 440px"
       />
 
-      <div class="column gap-10 q-py-md self-center" style="max-width: 450px">
+      <div class="col-sm-5 col-12 q-gutter-y-md">
         <div class="text-h6 text-weight-bold">
           {{ courseData.title }}
         </div>
@@ -21,7 +22,6 @@
         </div>
 
         <div
-          class="row q-gutter-md"
           :class="$q.dark.isActive ? 'text-white' : 'text-grey-7'"
           :color="$q.dark.isActive ? 'white' : 'grey-7'"
         >
@@ -40,6 +40,11 @@
         </div>
         <div class="text-body2" v-html="courseData.description" />
 
+        <map-box
+          :longitude="courseData.longitude"
+          :latitude="courseData.latitude"
+        />
+
         <q-btn
           label="Voltar"
           class="full-width q-mt-md"
@@ -57,6 +62,7 @@ import { useRoute, useRouter } from "vue-router";
 
 import userApi from "src/composables/useApi";
 import SkeletonDetailsPage from "src/components/SkeletonDetailsPage.vue";
+import MapBox from "src/components/MapBox.vue";
 
 const { getById } = userApi();
 const router = useRouter();
@@ -81,6 +87,8 @@ const getDetails = async (id) => {
   try {
     const data = await getById("places", id);
     courseData.value = data;
+    console.log(courseData.value);
+
     load.value = false;
   } catch (error) {
     console.log(error);

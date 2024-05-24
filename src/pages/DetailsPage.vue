@@ -1,15 +1,15 @@
 <template>
   <q-page padding>
     <skeleton-details-page v-if="load" />
-    <div v-else class="row col justify-center">
+    <div v-else class="row justify-center q-gutter-x-xl q-gutter-y-md">
       <q-img
-        class="q-px-sm"
+        class="col-5-md"
         :src="courseData.img_url"
         style="max-height: 30rem; max-width: 400px"
       />
 
       <div
-        class="column q-gutter-y-sm q-px-sm q-py-md self-center"
+        class="column col-5-md self-center q-gutter-y-sm"
         style="max-width: 450px"
       >
         <div>
