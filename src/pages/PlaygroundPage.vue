@@ -1,6 +1,4 @@
 <template>
-  <q-page> <map-box /> </q-page>
+  <q-page><div>oi</div> </q-page>
 </template>
-<script setup>
-import MapBox from "src/components/MapBox.vue";
-</script>
+<script setup></script>

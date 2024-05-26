@@ -1,1 +1,62 @@
-// app global css in SCSS form
+:root {
+  --base-font-size: 16px;
+  --body2-font-size: calc(var(--base-font-size) * 0.875);
+  --overline-font-size: calc(var(--base-font-size) * 0.75);
+  --caption-font-size: calc(var(--base-font-size) * 0.75);
+  --body1-font-size: var(--base-font-size);
+  --subtitle1-font-size: calc(var(--base-font-size) * 1.15);
+  --h1-font-size: calc(var(--base-font-size) * 2.5);
+  --h2-font-size: calc(var(--base-font-size) * 2);
+  --h3-font-size: calc(var(--base-font-size) * 1.75);
+  --h4-font-size: calc(var(--base-font-size) * 1.5);
+  --h5-font-size: calc(var(--base-font-size) * 1.25);
+  --h6-font-size: calc(var(--base-font-size) * 1.15);
+}
+
+body {
+  font-size: var(--base-font-size);
+}
+
+.text-body2 {
+  font-size: var(--body2-font-size);
+}
+
+.text-overline {
+  font-size: var(--overline-font-size);
+}
+
+.text-body1 {
+  font-size: var(--body1-font-size);
+}
+
+.text-subtitle1 {
+  font-size: var(--subtitle1-font-size);
+}
+
+.text-caption {
+  font-size: var(--caption-font-size);
+}
+
+.text-h1 {
+  font-size: var(--h1-font-size);
+}
+
+.text-h2 {
+  font-size: var(--h2-font-size);
+}
+
+.text-h3 {
+  font-size: var(--h3-font-size);
+}
+
+.text-h4 {
+  font-size: var(--h4-font-size);
+}
+
+.text-h5 {
+  font-size: var(--h5-font-size);
+}
+
+.text-h6 {
+  font-size: var(--h6-font-size);
+}

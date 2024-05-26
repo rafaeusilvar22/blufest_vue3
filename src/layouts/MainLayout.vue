@@ -47,7 +47,6 @@
           v-for="link in linksList"
           :key="link.title"
           v-bind="link"
-          @click="setInitialPositionScrollBehavior()"
         />
       </q-list>
 
@@ -57,7 +56,6 @@
           v-for="link in adminRoute"
           :key="link.title"
           v-bind="link"
-          @click="setInitialPositionScrollBehavior()"
         />
       </q-list>
     </q-drawer>
@@ -70,17 +68,22 @@
 
 <script setup>
 import { onMounted, ref, watch } from "vue";
+import { useQuasar } from "quasar";
+import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { adminRoute } from "src/constants/adminRoute";
 import useAuthUser from "src/composables/useAuthUser";
 
 import EssentialLink from "components/EssentialLink.vue";
 import BottomNavigation from "components/BottomNavigation.vue";
-import { useRoute } from "vue-router";
+import { useFontSize } from "src/composables/useFontSize";
 
 const { user } = useAuthUser();
 const { t } = useI18n();
 const route = useRoute();
+const $q = useQuasar();
+// eslint-disable-next-line no-unused-vars
+const { baseFontSize, updateFontSizes } = useFontSize();
 const isAdmin = ref(false);
 const visibledBottomNavigation = ref(true);
 const linksList = ref([
@@ -107,7 +110,9 @@ const linksList = ref([
 ]);
 
 onMounted(() => {
+  updateFontSizes();
   verifyAdmin();
+  verifyDarkMode();
 });
 
 // https://vuejs.org/guide/essentials/watchers.html
@@ -118,6 +123,10 @@ watch(
   }
 );
 
+const verifyDarkMode = () => {
+  const darkModeLocalStorage = $q.localStorage.getItem("dark-mode");
+  $q.dark.set(darkModeLocalStorage);
+};
 // Função para ocultar ou exibir bottom-navigation de acordo com a rota
 const verifyRoute = (r) => {
   visibledBottomNavigation.value = linksList.value.some(
@@ -130,9 +139,6 @@ const verifyAdmin = () => {
     isAdmin.value = true;
   }
 };
-const setInitialPositionScrollBehavior = () => {
-  // window.scrollTo(0, 0);
-};
 
 const leftDrawerOpen = ref(false);
 
@@ -140,3 +146,4 @@ const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 };
 </script>
+src/composables/useFontSize

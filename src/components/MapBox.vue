@@ -35,6 +35,7 @@ const darkMap = () => {
 };
 
 const createMap = (style) => {
+  console.log("iniciou");
   map.value = new mapboxgl.Map({
     container: mapContainer.value,
     style: style, // Utiliza o estilo passado como parâmetro
@@ -49,6 +50,8 @@ const createMap = (style) => {
   new mapboxgl.Marker()
     .setLngLat([longitude.value, latitude.value])
     .addTo(map.value);
+
+  console.log("finalizou");
 };
 
 onMounted(() => {
